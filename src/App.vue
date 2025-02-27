@@ -1,18 +1,9 @@
 <script setup lang="ts">
-
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-
-    <div class="wrapper text-[red] text-4xl font-bold underline">
-      text
-    </div>
-  </header>
-
   <RouterView />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
