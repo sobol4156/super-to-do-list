@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from 'vue'
+import { computed } from 'vue'
+import { useTaskStore } from '@/store/taskStore';
 import type { Task } from '@/types'
 
 const props = defineProps<{
   task: Task
 }>()
 
-const emit = defineEmits(['toggle-task', 'remove-task'])
+const taskStore = useTaskStore()
 
 const priorityColor = computed(() => {
   return {
@@ -19,7 +20,7 @@ const priorityColor = computed(() => {
 
 <template>
   <li
-    @click="emit('toggle-task', task.id)"
+    @click="taskStore.toggleTask(task.id)"
     class="task-item flex items-center justify-between p-2 rounded-md mb-2 cursor-pointer select-none transition-all bg-[#1e1e1e] hover:bg-[#292929]"
     :class="{ 'opacity-50': task.completed }"
   >
@@ -31,7 +32,7 @@ const priorityColor = computed(() => {
     </div>
 
     <button
-      @click.stop="emit('remove-task', task.id)"
+      @click.stop="taskStore.removeTask(task.id)"
       class="delete-btn cursor-pointer bg-[#454545] text-white px-2 py-1 rounded-md hover:bg-[#463f3f] transition"
     >
       ❌

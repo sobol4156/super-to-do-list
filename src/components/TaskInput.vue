@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue'
+import { useTaskStore } from '@/store/taskStore'
+import { ref } from 'vue'
 
 const newTask = ref('')
 const priority = ref<'low' | 'medium' | 'high'>('low')
-const emit = defineEmits(['add-task'])
+const taskStore = useTaskStore()
 
 const addTask = () => {
   if (!newTask.value.trim()) return
-  emit('add-task', { text: newTask.value, priority: priority.value })
+  taskStore.addTask({ id: Date.now(), text: newTask.value, priority: priority.value, completed: false })
   newTask.value = ''
 }
 

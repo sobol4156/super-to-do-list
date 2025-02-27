@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineModel } from 'vue'
-
 const filter = defineModel<'all' | 'active' | 'completed'>()
 </script>
 
