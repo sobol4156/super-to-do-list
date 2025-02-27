@@ -8,13 +8,19 @@ interface Task {
   id: number
   text: string
   completed: boolean
+  priority: 'low' | 'medium' | 'high'
+}
+
+interface NewTask {
+  text: string
+  priority: 'low' | 'medium' | 'high'
 }
 
 const tasks: Ref<Task[]> = ref(JSON.parse(localStorage.getItem('tasks') || '[]') as Task[])
 
-const addTask = (taskText: string) => {
-  if (!taskText.trim()) return
-  tasks.value.push({ id: Date.now(), text: taskText, completed: false })
+const addTask = (task: NewTask) => {
+  if (!task.text.trim()) return
+  tasks.value.unshift({ id: Date.now(), text: task.text, priority: task.priority, completed: false })
 }
 
 const removeTask = (id: number) => {
@@ -23,12 +29,16 @@ const removeTask = (id: number) => {
 
 const toggleTask = (id: number) => {
   const task = tasks.value.find((t) => t.id === id)
-  if (task) task.completed = !task.completed
+  if (task) {
+    task.completed = !task.completed
+    tasks.value = tasks.value.filter((t) => t.id !== id)
+    tasks.value.push(task)
+  }
 }
 
 const filter: Ref<'all' | 'active' | 'completed'> = ref('all')
 const filteredTasks = computed(() => {
-  if (filter.value === 'completed') return tasks.value.filter((task) => task.completed)
+  if (filter.value === 'completed') return tasks.value.filter((task) => task.completed).reverse()
   if (filter.value === 'active') return tasks.value.filter((task) => !task.completed)
   return tasks.value
 })
@@ -37,7 +47,9 @@ watch(tasks, (newTasks) => localStorage.setItem('tasks', JSON.stringify(newTasks
 </script>
 
 <template>
-  <div class="container max-w-lg mx-auto p-6 bg-[#1e1e1e] shadow-lg rounded-lg flex flex-col gap-[10px]">
+  <div
+    class="container max-w-lg mx-auto p-6 bg-[#1e1e1e] shadow-lg rounded-lg flex flex-col gap-[10px]"
+  >
     <h1 class="text-2xl font-bold text-center">To-Do List</h1>
 
     <TaskInput @add-task="addTask" />
@@ -56,6 +68,4 @@ watch(tasks, (newTasks) => localStorage.setItem('tasks', JSON.stringify(newTasks
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @import './base.css';
 
 #app {
@@ -6,4 +6,10 @@
   font-weight: normal;
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 576px) {
+  #app {
+    padding: 0;
+  }
 }
