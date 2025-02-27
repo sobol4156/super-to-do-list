@@ -3,24 +3,18 @@ import { ref, computed, watch, type Ref } from 'vue'
 import TaskInput from '@/components/TaskInput.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import TaskFilters from '@/components/TaskFilters.vue'
-
-interface Task {
-  id: number
-  text: string
-  completed: boolean
-  priority: 'low' | 'medium' | 'high'
-}
-
-interface NewTask {
-  text: string
-  priority: 'low' | 'medium' | 'high'
-}
+import type { Task, NewTask } from '@/types'
 
 const tasks: Ref<Task[]> = ref(JSON.parse(localStorage.getItem('tasks') || '[]') as Task[])
 
 const addTask = (task: NewTask) => {
   if (!task.text.trim()) return
-  tasks.value.unshift({ id: Date.now(), text: task.text, priority: task.priority, completed: false })
+  tasks.value.unshift({
+    id: Date.now(),
+    text: task.text,
+    priority: task.priority,
+    completed: false,
+  })
 }
 
 const removeTask = (id: number) => {

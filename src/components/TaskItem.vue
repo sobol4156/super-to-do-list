@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, computed } from 'vue'
+import type { Task } from '@/types'
 
 const props = defineProps<{
-  task: { id: number; text: string; priority: 'low' | 'medium' | 'high'; completed: boolean }
+  task: Task
 }>()
 
 const emit = defineEmits(['toggle-task', 'remove-task'])
@@ -11,7 +12,7 @@ const priorityColor = computed(() => {
   return {
     low: 'bg-blue-500',
     medium: 'bg-yellow-500',
-    high: 'bg-red-500'
+    high: 'bg-red-500',
   }[props.task.priority]
 })
 </script>
@@ -20,7 +21,7 @@ const priorityColor = computed(() => {
   <li
     @click="emit('toggle-task', task.id)"
     class="task-item flex items-center justify-between p-2 rounded-md mb-2 cursor-pointer select-none transition-all bg-[#1e1e1e] hover:bg-[#292929]"
-    :class="{'opacity-50': task.completed}"
+    :class="{ 'opacity-50': task.completed }"
   >
     <div class="flex items-center gap-3">
       <span :class="['w-3 h-3 rounded-full', priorityColor]"></span>
