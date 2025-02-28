@@ -24,11 +24,11 @@ const handleKeyPress = (event: KeyboardEvent) => {
     <input
       v-model="newTask"
       placeholder="Добавить задачу..."
-      class="p-2 border rounded-md flex-1 bg-[#121212] text-white outline-none"
+      class="p-2 border rounded-md flex-1 bg-white text-black dark:bg-[#121212] dark:text-white outline-none"
       @keypress="handleKeyPress"
     />
 
-    <select v-model="priority" class="p-2 border rounded-md bg-[#121212] text-white cursor-pointer">
+    <select v-model="priority" class="p-2 border rounded-md bg-white text-black dark:bg-[#121212] dark:text-white cursor-pointer">
       <option value="low">🔵 Низкий</option>
       <option value="medium">🟡 Средний</option>
       <option value="high">🔴 Высокий</option>

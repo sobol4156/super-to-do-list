@@ -21,7 +21,7 @@ const priorityColor = computed(() => {
 <template>
   <li
     @click="taskStore.toggleTask(task.id)"
-    class="task-item flex items-center justify-between p-2 rounded-md mb-2 cursor-pointer select-none transition-all bg-[#1e1e1e] hover:bg-[#292929]"
+    class="task-item flex items-center justify-between p-2 rounded-md mb-2 cursor-pointer select-none transition-all bg-white text-black dark:text-white hover:bg-[#eee] dark:bg-[#1e1e1e] dark:hover:bg-[#292929]"
     :class="{ 'opacity-50': task.completed }"
   >
     <div class="flex items-center gap-3">
@@ -33,7 +33,7 @@ const priorityColor = computed(() => {
 
     <button
       @click.stop="taskStore.removeTask(task.id)"
-      class="delete-btn cursor-pointer bg-[#454545] text-white px-2 py-1 rounded-md hover:bg-[#463f3f] transition"
+      class="delete-btn cursor-pointer px-2 py-1 rounded-md text-black bg-[#dddbdb] hover:bg-[#c7c5c5] dark:hover:bg-[#463f3f] dark:bg-[#454545] dark:text-white transition"
     >
       ❌
     </button>

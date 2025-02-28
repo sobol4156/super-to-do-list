@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './base.css';
+@custom-variant dark (&:where(.dark, .dark *));
 
 #app {
   padding: 2rem;

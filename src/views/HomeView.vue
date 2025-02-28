@@ -83,7 +83,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container max-w-lg mx-auto p-6 bg-[#1e1e1e] shadow-lg rounded-lg flex flex-col gap-[10px]">
+  <div class="container max-w-lg mx-auto p-6 shadow-lg rounded-lg flex flex-col gap-[10px] bg-white text-black dark:bg-[#1e1e1e] dark:text-white">
     <h1 class="text-2xl font-bold text-center">To-Do List</h1>
 
     <div class="flex justify-between mt-4">
@@ -102,7 +102,7 @@ onMounted(() => {
       v-model="searchQuery"
       type="text"
       placeholder="🔍 Поиск задач..."
-      class="p-2 bg-[#2a2a2a] text-white border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 transition"
+      class="p-2 bg-white text-black dark:bg-[#2a2a2a] dark:text-white border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 transition"
     />
 
     <TaskFilters v-model="filter" />
@@ -111,6 +111,6 @@ onMounted(() => {
       <TaskItem v-for="task in paginatedTasks" :key="task.id" :task="task" />
     </ul>
 
-    <p v-if="paginatedTasks.length === 0" class="text-gray-400 text-center mt-4">❌ Задачи не найдены</p>
+    <p v-if="paginatedTasks.length === 0" class="text-black dark:text-gray-400 text-center mt-4">❌ Задачи не найдены</p>
   </div>
 </template>
