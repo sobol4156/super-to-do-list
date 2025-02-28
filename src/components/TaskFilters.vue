@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+
+const {t} = useI18n()
+
 const filter = defineModel<'all' | 'active' | 'completed'>()
 </script>
 
@@ -9,21 +13,21 @@ const filter = defineModel<'all' | 'active' | 'completed'>()
       :class="{ active: filter === 'all' }"
       class="cursor-pointer px-4 py-2 rounded-md border border-gray-400 dark:border-gray-600 bg-gray-200 text-black dark:bg-gray-700 dark:text-white transition"
     >
-      Все
+    {{ t('components.task_filter.all') }}
     </button>
     <button
       @click="filter = 'active'"
       :class="{ active: filter === 'active' }"
       class="cursor-pointer px-4 py-2 rounded-md border border-gray-400 dark:border-gray-600 bg-gray-200 text-black dark:bg-gray-700 dark:text-white transition"
     >
-      Активные
+    {{ t('components.task_filter.active') }}
     </button>
     <button
       @click="filter = 'completed'"
       :class="{ active: filter === 'completed' }"
       class="cursor-pointer px-4 py-2 rounded-md border border-gray-400 dark:border-gray-600 bg-gray-200 text-black dark:bg-gray-700 dark:text-white transition"
     >
-      Завершенные
+    {{ t('components.task_filter.completed') }}
     </button>
   </div>
 </template>

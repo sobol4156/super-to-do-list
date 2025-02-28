@@ -4,7 +4,9 @@ import TaskInput from '@/components/TaskInput.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import TaskFilters from '@/components/TaskFilters.vue'
 import { useTaskStore } from '@/store/taskStore'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const taskStore = useTaskStore()
 
 const filter = ref<'all' | 'active' | 'completed'>('all')
@@ -88,11 +90,11 @@ onMounted(() => {
 
     <div class="flex justify-between mt-4">
       <button @click="exportTasks" class="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-        📤 Экспорт
+        {{ t('export') }}
       </button>
 
       <label class="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
-        📥 Импорт
+        {{ t('import') }}
         <input type="file" accept=".json" @change="importTasks" class="hidden" />
       </label>
     </div>
@@ -101,7 +103,7 @@ onMounted(() => {
     <input
       v-model="searchQuery"
       type="text"
-      placeholder="🔍 Поиск задач..."
+      :placeholder="t('search_placeholder')"
       class="p-2 bg-white text-black dark:bg-[#2a2a2a] dark:text-white border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 transition"
     />
 
@@ -111,6 +113,6 @@ onMounted(() => {
       <TaskItem v-for="task in paginatedTasks" :key="task.id" :task="task" />
     </ul>
 
-    <p v-if="paginatedTasks.length === 0" class="text-black dark:text-gray-400 text-center mt-4">❌ Задачи не найдены</p>
+    <p v-if="paginatedTasks.length === 0" class="text-black dark:text-gray-400 text-center mt-4">{{ t('no_tasks') }}</p>
   </div>
 </template>
