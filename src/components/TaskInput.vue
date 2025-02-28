@@ -12,7 +12,6 @@ const taskStore = useTaskStore()
 const addTask = () => {
   if (!newTask.value.trim()) return
   taskStore.addTask({
-    id: Date.now(),
     text: newTask.value,
     priority: priority.value,
     completed: false,

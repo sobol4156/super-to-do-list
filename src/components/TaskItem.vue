@@ -16,6 +16,7 @@ const priorityColor = computed(() => {
     high: 'bg-red-500',
   }[props.task.priority]
 })
+
 </script>
 
 <template>
