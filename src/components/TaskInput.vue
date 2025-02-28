@@ -30,6 +30,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
   <div class="task-form flex gap-2">
     <input
       v-model="newTask"
+      data-testid="task-input"
       :placeholder="t('components.task_input.placeholder')"
       class="p-2 border rounded-md flex-1 bg-white text-black dark:bg-[#121212] dark:text-white outline-none"
       @keypress="handleKeyPress"
@@ -46,6 +47,7 @@ const handleKeyPress = (event: KeyboardEvent) => {
 
     <button
       @click="addTask"
+      data-testid="add-task__btn"
       class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600 transition"
     >
       ➕

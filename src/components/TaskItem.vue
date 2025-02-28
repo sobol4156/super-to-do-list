@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useTaskStore } from '@/store/taskStore';
+import { useTaskStore } from '@/store/taskStore'
 import type { Task } from '@/types'
 
 const props = defineProps<{
@@ -16,7 +16,6 @@ const priorityColor = computed(() => {
     high: 'bg-red-500',
   }[props.task.priority]
 })
-
 </script>
 
 <template>
@@ -33,6 +32,7 @@ const priorityColor = computed(() => {
     </div>
 
     <button
+      data-testid="delete-btn"
       @click.stop="taskStore.removeTask(task.id)"
       class="delete-btn cursor-pointer px-2 py-1 rounded-md text-black bg-[#dddbdb] hover:bg-[#c7c5c5] dark:hover:bg-[#463f3f] dark:bg-[#454545] dark:text-white transition"
     >

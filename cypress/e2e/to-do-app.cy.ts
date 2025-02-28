@@ -4,42 +4,49 @@ describe('To-Do App', () => {
   })
 
   it('Добавляет новую задачу', () => {
-    cy.get('input').type('Купить молоко')
-    cy.get('button').contains('➕').click()
+    cy.get('[data-testid="task-input"]').type('Купить молоко')
+
+    cy.get(`[data-testid="add-task__btn"]`).should('exist').should('be.visible').click()
 
     cy.contains('Купить молоко').should('exist')
   })
 
   it('Переключает статус задачи', () => {
-    cy.get('input').type('Сделать зарядку')
-    cy.get('button').contains('➕').click()
+    cy.get('[data-testid="task-input"]').type('Сделать зарядку')
+    cy.get(`[data-testid="add-task__btn"]`).should('exist').should('be.visible').click()
 
-    // Кликаем на задачу, чтобы переключить статус
     cy.contains('Сделать зарядку').click()
     cy.contains('Сделать зарядку').should('have.class', 'line-through')
   })
 
   it('Удаляет задачу', () => {
-    cy.get('input').type('Купить хлеб')
-    cy.get('button').contains('➕').click()
+    cy.get('[data-testid="task-input"]').type('Купить хлеб')
 
-    // Нажимаем кнопку удаления
-    cy.contains('Купить хлеб')
-      .parent()
-      .find('button.delete-btn')
+    cy.get(`[data-testid="add-task__btn"]`)
+      .should('exist')
+      .should('be.visible')
       .click()
 
-    // Проверяем, что задача удалена
+    cy.contains('Купить хлеб').should('exist')
+
+    cy.contains('Купить хлеб')
+      .should('exist')
+      .closest('li')
+      .find('.delete-btn')
+      .should('exist')
+      .should('be.visible')
+      .click()
+
     cy.contains('Купить хлеб').should('not.exist')
   })
 
+
   it('Задачи сохраняются после перезагрузки', () => {
-    cy.get('input').type('Выучить Cypress')
-    cy.get('button').contains('➕').click()
+    cy.get('[data-testid="task-input"]').type('Выучить Cypress')
+    cy.get(`[data-testid="add-task__btn"]`).should('exist').should('be.visible').click()
 
-    cy.reload() // Перезагружаем страницу
+    cy.reload()
 
-    // Проверяем, что задача осталась
     cy.contains('Выучить Cypress').should('exist')
   })
 })
