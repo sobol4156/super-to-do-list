@@ -6,14 +6,26 @@ import TaskFilters from '@/components/TaskFilters.vue'
 import { useTaskStore } from '@/store/taskStore'
 
 const taskStore = useTaskStore()
+const searchQuery = ref('')
 
 const filter = ref<'all' | 'active' | 'completed'>('all')
 
 const filteredTasks = computed(() => {
-  if (filter.value === 'completed')
-    return taskStore.tasks.filter((task) => task.completed).reverse()
-  if (filter.value === 'active') return taskStore.tasks.filter((task) => !task.completed)
-  return taskStore.tasks
+  let tasks = taskStore.tasks
+
+  if (filter.value === 'completed') {
+    tasks = tasks.filter((task) => task.completed).reverse()
+  } else if (filter.value === 'active') {
+    tasks = tasks.filter((task) => !task.completed)
+  }
+
+  if (searchQuery.value.trim()) {
+    tasks = tasks.filter((task) =>
+      task.text.toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  }
+
+  return tasks
 })
 </script>
 
@@ -24,6 +36,13 @@ const filteredTasks = computed(() => {
     <h1 class="text-2xl font-bold text-center">To-Do List</h1>
 
     <TaskInput />
+
+    <input
+      v-model="searchQuery"
+      type="text"
+      placeholder="🔍 Поиск задач..."
+      class="p-2 bg-[#2a2a2a] text-white border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
 
     <TaskFilters v-model="filter" />
 
