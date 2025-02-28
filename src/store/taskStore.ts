@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import type { Task } from '@/types'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 
 export const useTaskStore = defineStore('taskStore', {
   state: () => ({
@@ -12,10 +14,12 @@ export const useTaskStore = defineStore('taskStore', {
       if (!task.text.trim()) return
       this.tasks.unshift(task)
       this.saveTasks()
+      toast.success('✅ Задача добавлена!')
     },
     removeTask(id: number) {
       this.tasks = this.tasks.filter(task => task.id !== id)
       this.saveTasks()
+      toast.error('🗑️ Задача удалена')
     },
 
     toggleTask(id: number) {
@@ -24,6 +28,12 @@ export const useTaskStore = defineStore('taskStore', {
         task.completed = !task.completed
         this.tasks = this.tasks.filter((t) => t.id !== id)
         this.tasks.push(task)
+
+        if (task.completed) {
+          toast.success('🎉 Задача выполнена!')
+        } else {
+          toast.warning('🔄 Задача снова активна')
+        }
       }
       this.saveTasks()
     },
