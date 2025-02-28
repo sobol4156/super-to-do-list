@@ -6,7 +6,9 @@ import tailwindcss from '@tailwindcss/vite'
 import viteCompression from 'vite-plugin-compression'
 import { visualizer } from 'rollup-plugin-visualizer'
 
-export default defineConfig(({ mode }) => ({
+const isProduction = process.env.NODE_ENV === 'production'
+
+export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
@@ -21,7 +23,7 @@ export default defineConfig(({ mode }) => ({
       threshold: 1024,
     }),
 
-    mode === 'production' && visualizer({ open: false }),
+    isProduction && visualizer({ open: false }),
   ],
 
   build: {
@@ -29,8 +31,8 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     terserOptions: {
       compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
+        drop_console: isProduction,
+        drop_debugger: isProduction,
       },
     },
     rollupOptions: {
@@ -55,9 +57,4 @@ export default defineConfig(({ mode }) => ({
     include: ['vue', 'vue-router', 'pinia'],
     exclude: ['some-heavy-lib'],
   },
-
-  test: {
-    environment: 'jsdom',
-    globals: true,
-  },
-}))
+})

@@ -1,41 +1,58 @@
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
 import TaskItem from '@/components/TaskItem.vue'
 import { createTestingPinia } from '@pinia/testing'
 import { useTaskStore } from '@/store/taskStore'
 
 describe('TaskItem.vue', () => {
   it('переключает статус при клике', async () => {
-    const pinia = createTestingPinia({ stubActions: false })
-    const taskStore = useTaskStore()
-
-    taskStore.tasks.push({ id: 1, text: 'Тестовая задача', priority: 'medium', completed: false })
-
-    const wrapper = mount(TaskItem, { 
-      props: { task: taskStore.tasks[0] },
-      global: { plugins: [pinia] }
+    const wrapper = mount(TaskItem, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn,
+          }),
+        ],
+      },
+      props: {
+        task: {
+          id: 1,
+          text: 'Test Task',
+          completed: false,
+          priority: 'medium',
+        },
+      },
     })
 
+    const taskStore = useTaskStore()
+    
     await wrapper.trigger('click')
-
-    expect(taskStore.tasks[0].completed).toBe(true)
+    expect(taskStore.toggleTask).toHaveBeenCalledWith(1)
   })
 
   it('удаляет задачу по кнопке', async () => {
-    const pinia = createTestingPinia({ stubActions: false })
-    const taskStore = useTaskStore()
-
-    taskStore.tasks.push({ id: 1, text: 'Удаляемая', priority: 'high', completed: false })
-
-    const wrapper = mount(TaskItem, { 
-      props: { task: taskStore.tasks[0] },
-      global: { plugins: [pinia] }
+    const wrapper = mount(TaskItem, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn,
+          }),
+        ],
+      },
+      props: {
+        task: {
+          id: 1,
+          text: 'Test Task',
+          completed: false,
+          priority: 'high',
+        },
+      },
     })
 
-    const deleteButton = wrapper.find('button')
-    await deleteButton.trigger('click')
+    const taskStore = useTaskStore()
+    const deleteButton = wrapper.find('.delete-btn')
 
-    expect(taskStore.tasks).toHaveLength(0)
+    await deleteButton.trigger('click')
+    expect(taskStore.removeTask).toHaveBeenCalledWith(1)
   })
 })
-
