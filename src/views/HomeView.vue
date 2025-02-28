@@ -19,7 +19,7 @@ const searchQuery = ref('')
     <h1 class="text-2xl font-bold text-center">To-Do List</h1>
 
     <TaskImportExport />
-    
+
     <TaskInput />
 
     <input

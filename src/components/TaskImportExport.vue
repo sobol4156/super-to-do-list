@@ -50,19 +50,19 @@ const importTasks = (event: Event) => {
 </script>
 
 <template>
-    <div class="flex justify-between mt-4">
-      <button
-        @click="exportTasks"
-        class="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-      >
-        {{ t('export') }}
-      </button>
+  <div class="flex justify-between mt-4">
+    <button
+      @click="exportTasks"
+      class="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+    >
+      {{ t('export') }}
+    </button>
 
-      <label
-        class="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-      >
-        {{ t('import') }}
-        <input type="file" accept=".json" @change="importTasks" class="hidden" />
-      </label>
-    </div>
+    <label
+      class="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+    >
+      {{ t('import') }}
+      <input type="file" accept=".json" @change="importTasks" class="hidden" />
+    </label>
+  </div>
 </template>

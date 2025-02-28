@@ -1,10 +1,10 @@
 import './assets/main.css'
-import "vue-toastification/dist/index.css";
+import 'vue-toastification/dist/index.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import Toast, { POSITION, useToast, type PluginOptions } from "vue-toastification";
+import Toast, { POSITION, useToast, type PluginOptions } from 'vue-toastification'
 import App from './App.vue'
 import router from './router'
 import i18n from './lang/i18n'
@@ -17,12 +17,12 @@ const options: PluginOptions = {
   pauseOnHover: true,
   draggable: true,
   transition: 'Vue-Toastification__fade',
-};
+}
 
 app.use(createPinia())
 app.use(router)
 app.use(i18n)
-app.use(Toast, options);
+app.use(Toast, options)
 
 app.config.errorHandler = (err) => {
   console.error('Произошла ошибка:', err)

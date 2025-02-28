@@ -25,7 +25,7 @@ describe('TaskItem.vue', () => {
     })
 
     const taskStore = useTaskStore()
-    
+
     await wrapper.trigger('click')
     expect(taskStore.toggleTask).toHaveBeenCalledWith(1)
   })

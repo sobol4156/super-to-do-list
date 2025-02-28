@@ -79,12 +79,19 @@ export const useTaskStore = defineStore('taskStore', {
         const taskIndex = this.tasks.findIndex((t) => t.id === id)
         if (taskIndex === -1) return
 
-        const updatedTask = { ...this.tasks[taskIndex], completed: !this.tasks[taskIndex].completed }
+        const updatedTask = {
+          ...this.tasks[taskIndex],
+          completed: !this.tasks[taskIndex].completed,
+        }
 
         if (isDev) {
           this.tasks[taskIndex] = updatedTask
           localStorage.setItem('tasks', JSON.stringify(this.tasks))
-          toast.success(updatedTask.completed ? '🎉 Задача выполнена! (LocalStorage)' : '🔄 Задача снова активна (LocalStorage)')
+          toast.success(
+            updatedTask.completed
+              ? '🎉 Задача выполнена! (LocalStorage)'
+              : '🔄 Задача снова активна (LocalStorage)',
+          )
         } else {
           const response = await fetch(`${API_URL}/tasks/${id}`, {
             method: 'PUT',
@@ -94,7 +101,9 @@ export const useTaskStore = defineStore('taskStore', {
           if (!response.ok) throw new Error('Ошибка при обновлении задачи')
 
           this.tasks = this.tasks.map((task) => (task.id === id ? updatedTask : task))
-          toast.success(updatedTask.completed ? '🎉 Задача выполнена! (API)' : '🔄 Задача снова активна (API)')
+          toast.success(
+            updatedTask.completed ? '🎉 Задача выполнена! (API)' : '🔄 Задача снова активна (API)',
+          )
         }
       } catch (error) {
         console.error('Ошибка API:', error)

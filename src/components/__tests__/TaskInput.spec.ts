@@ -22,10 +22,7 @@ describe('TaskInput.vue', () => {
   it('добавляет задачу при нажатии на кнопку', async () => {
     const wrapper = mount(TaskInput, {
       global: {
-        plugins: [
-          createTestingPinia({ createSpy: vi.fn }),
-          i18n
-        ],
+        plugins: [createTestingPinia({ createSpy: vi.fn }), i18n],
       },
     })
 
@@ -42,10 +39,7 @@ describe('TaskInput.vue', () => {
   it('не добавляет задачу, если поле пустое', async () => {
     const wrapper = mount(TaskInput, {
       global: {
-        plugins: [
-          createTestingPinia({ createSpy: vi.fn }),
-          i18n
-        ],
+        plugins: [createTestingPinia({ createSpy: vi.fn }), i18n],
       },
     })
 

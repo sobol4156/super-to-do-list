@@ -33,7 +33,7 @@ const messages = {
       task_filter: {
         all: 'All',
         active: 'Active',
-        completed: 'Completed', 
+        completed: 'Completed',
       },
       task_input: {
         placeholder: 'Add a task...',
@@ -42,7 +42,7 @@ const messages = {
           medium: 'Medium',
           high: 'High',
         },
-      }
+      },
     },
   },
   ru: {
@@ -86,7 +86,7 @@ const messages = {
           medium: 'Средний',
           high: 'Высокий',
         },
-      }
+      },
     },
   },
 }

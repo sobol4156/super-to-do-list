@@ -4,7 +4,7 @@ import { useTaskStore } from '@/store/taskStore'
 import { useI18n } from 'vue-i18n'
 import TaskItem from '@/components/TaskItem.vue'
 
-const props = defineProps<{filter:'all' | 'active' | 'completed', searchQuery: string}>()
+const props = defineProps<{ filter: 'all' | 'active' | 'completed'; searchQuery: string }>()
 
 const { t } = useI18n()
 const taskStore = useTaskStore()
@@ -29,7 +29,6 @@ const filteredTasks = computed(() => {
 
   return tasks
 })
-
 
 const loadMoreTasks = () => {
   if (visibleTasks.value < filteredTasks.value.length) {

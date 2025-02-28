@@ -6,9 +6,9 @@ const { t, locale } = useI18n()
 
 const theme = ref<'light' | 'dark'>(
   localStorage.theme === 'dark' ||
-  (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ? 'dark'
-    : 'light'
+    : 'light',
 )
 
 const language = ref<'ru' | 'en'>((localStorage.getItem('language') as 'ru' | 'en') || 'ru')
