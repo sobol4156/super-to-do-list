@@ -1,64 +1,97 @@
-# Super To-Do-List
+# 📝 To-Do List App
 
-![image](https://github.com/user-attachments/assets/ebd9aa3c-6d56-47fa-ac52-65219d9250d6)
+## 🚀 Описание проекта
+To-Do List — это веб-приложение для управления задачами, разработанное на **Vue 3** с использованием **Pinia** для управления состоянием и **Vue Router** для маршрутизации. Приложение поддерживает локальное хранилище в режиме разработки и API в продакшене.
+
+![image](https://github.com/user-attachments/assets/4088a259-3b9b-4e44-8a2a-7861419d01b3)
 
 
-This template should help get you started developing with Vue 3 in Vite.
+---
 
-## Recommended IDE Setup
+## 📦 Используемые технологии
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+| Технология | Версия | Описание |
+|------------|--------|----------|
+| **Vue 3** | `^3.5.13` | Фреймворк для построения UI |
+| **Pinia** | `^3.0.1` | Управление состоянием |
+| **Vue Router** | `^4.5.0` | Маршрутизация |
+| **Vue I18n** | `^11.1.1` | Локализация |
+| **Vue Toastification** | `^2.0.0-rc.5` | Уведомления |
+| **TailwindCSS** | `^4.0.9` | Стилизация UI |
+| **Vite** | `^6.1.0` | Быстрая сборка и Dev-сервер |
+| **Cypress** | `^14.0.3` | End-to-End тестирование |
+| **Vitest** | `^3.0.7` | Unit-тестирование |
 
-## Type Support for `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## 📂 Структура проекта
+```
+📦 to-do-app
+├── 📂 src
+│   ├── 📂 assets         # Стили и изображения
+│   ├── 📂 components     # UI-компоненты и Unit-тесты
+│   ├── 📂 lang           # Локализация
+│   ├── 📂 router         # Vue Router маршруты
+│   ├── 📂 store          # Pinia-хранилище
+│   ├── 📂 types          # Типы
+│   ├── 📂 views          # Основные страницы
+│   ├── App.vue           # Корневой компонент
+│   ├── main.ts           # Точка входа
+├── 📂 cypress            # E2E-тесты
+├── index.html            # Html в который мы всё встраиваем
+├── vite.config.ts        # Конфигурация Vite
+├── cypress.config.ts     # Конфигурация Cypress
+├── tsconfig.json         # Конфигурация TypeScript
+├── package.json          # Зависимости проекта
+└── README.md             # Этот файл xD
+```
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## ⚡ Инструкция по запуску
 
-## Project Setup
-
+### 1️⃣ Установка зависимостей
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
+### 2️⃣ Запуск в режиме разработки
 ```sh
 npm run dev
 ```
+Приложение будет доступно по адресу: **http://localhost:5173/**
 
-### Type-Check, Compile and Minify for Production
-
+### 3️⃣ Сборка для продакшена
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### 4️⃣ Предпросмотр продакшн-версии
+```sh
+npm run preview
+```
 
+---
+
+## 🧪 Тестирование
+
+### 🔹 Запуск unit-тестов (Vitest)
 ```sh
 npm run test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
+### 🔹 Запуск End-to-End тестов (Cypress)
 ```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
 npm run test:e2e
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
+_Если тесты не запускаются, убедитесь, что сервер работает:_
 ```sh
-npm run lint
+npm run preview
 ```
+
+---
+
+## 📜 Лицензия
+Этот проект распространяется под лицензией **MIT**.
+
