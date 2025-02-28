@@ -5,8 +5,10 @@ import TaskItem from '@/components/TaskItem.vue'
 import TaskFilters from '@/components/TaskFilters.vue'
 import { useTaskStore } from '@/store/taskStore'
 import { useI18n } from 'vue-i18n'
+import { useToast } from 'vue-toastification'
 
 const { t } = useI18n()
+const toast = useToast()
 const taskStore = useTaskStore()
 
 const filter = ref<'all' | 'active' | 'completed'>('all')
@@ -46,20 +48,24 @@ const exportTasks = () => {
 
 const importTasks = (event: Event) => {
   const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) return
+  if (!file) {
+    toast.error('⚠️ Ошибка: Файл не выбран')
+    return
+  }
 
   const reader = new FileReader()
   reader.onload = (e) => {
     try {
       const importedTasks = JSON.parse(e.target?.result as string)
-
-      if (Array.isArray(importedTasks) && importedTasks.every(task => 'id' in task && 'text' in task && 'completed' in task)) {
-        taskStore.tasks = importedTasks
-      } else {
-        alert('Ошибка: Некорректный формат файла')
+      if (!Array.isArray(importedTasks) || !importedTasks.every(task => 'id' in task && 'text' in task)) {
+        throw new Error('Некорректный формат JSON')
       }
-    } catch {
-      alert('Ошибка при загрузке JSON')
+
+      taskStore.tasks = importedTasks
+      toast.success('✅ Файл успешно импортирован!')
+    } catch (error) {
+      console.error('Ошибка при загрузке JSON:', error)
+      toast.error('⚠️ Ошибка при загрузке файла')
     }
   }
   reader.readAsText(file)
