@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, shallowRef } from 'vue'
 import TaskInput from '@/components/TaskInput.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import TaskFilters from '@/components/TaskFilters.vue'
@@ -14,7 +14,7 @@ const searchQuery = ref('')
 const visibleTasks = ref(15)
 
 const filteredTasks = computed(() => {
-  let tasks = taskStore.tasks
+  let tasks = shallowRef(taskStore.tasks).value
 
   if (filter.value === 'completed') {
     tasks = tasks.filter((task) => task.completed).reverse()
