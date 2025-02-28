@@ -29,6 +29,40 @@ const filteredTasks = computed(() => {
   return tasks
 })
 
+const exportTasks = () => {
+  const dataStr = JSON.stringify(taskStore.tasks, null, 2)
+  const blob = new Blob([dataStr], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'tasks.json'
+  a.click()
+
+  URL.revokeObjectURL(url)
+}
+
+const importTasks = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (!file) return
+
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    try {
+      const importedTasks = JSON.parse(e.target?.result as string)
+
+      if (Array.isArray(importedTasks) && importedTasks.every(task => 'id' in task && 'text' in task && 'completed' in task)) {
+        taskStore.tasks = importedTasks
+      } else {
+        alert('Ошибка: Некорректный формат файла')
+      }
+    } catch {
+      alert('Ошибка при загрузке JSON')
+    }
+  }
+  reader.readAsText(file)
+}
+
 const paginatedTasks = computed(() => filteredTasks.value.slice(0, visibleTasks.value))
 
 const loadMoreTasks = () => {
@@ -52,6 +86,16 @@ onMounted(() => {
   <div class="container max-w-lg mx-auto p-6 bg-[#1e1e1e] shadow-lg rounded-lg flex flex-col gap-[10px]">
     <h1 class="text-2xl font-bold text-center">To-Do List</h1>
 
+    <div class="flex justify-between mt-4">
+      <button @click="exportTasks" class="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+        📤 Экспорт
+      </button>
+
+      <label class="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+        📥 Импорт
+        <input type="file" accept=".json" @change="importTasks" class="hidden" />
+      </label>
+    </div>
     <TaskInput />
 
     <input
